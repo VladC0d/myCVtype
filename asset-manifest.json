@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/VladC0d/myCVtype.git/static/css/main.dfd00dfd.css",
-    "main.js": "/VladC0d/myCVtype.git/static/js/main.3a2731e9.js",
-    "static/js/453.86a8dec4.chunk.js": "/VladC0d/myCVtype.git/static/js/453.86a8dec4.chunk.js",
-    "index.html": "/VladC0d/myCVtype.git/index.html",
-    "main.dfd00dfd.css.map": "/VladC0d/myCVtype.git/static/css/main.dfd00dfd.css.map",
-    "main.3a2731e9.js.map": "/VladC0d/myCVtype.git/static/js/main.3a2731e9.js.map",
-    "453.86a8dec4.chunk.js.map": "/VladC0d/myCVtype.git/static/js/453.86a8dec4.chunk.js.map"
+    "main.css": "/VladC0d/myCVtype/static/css/main.dfd00dfd.css",
+    "main.js": "/VladC0d/myCVtype/static/js/main.5c8b8f3e.js",
+    "static/js/453.86a8dec4.chunk.js": "/VladC0d/myCVtype/static/js/453.86a8dec4.chunk.js",
+    "index.html": "/VladC0d/myCVtype/index.html",
+    "main.dfd00dfd.css.map": "/VladC0d/myCVtype/static/css/main.dfd00dfd.css.map",
+    "main.5c8b8f3e.js.map": "/VladC0d/myCVtype/static/js/main.5c8b8f3e.js.map",
+    "453.86a8dec4.chunk.js.map": "/VladC0d/myCVtype/static/js/453.86a8dec4.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.dfd00dfd.css",
-    "static/js/main.3a2731e9.js"
+    "static/js/main.5c8b8f3e.js"
   ]
 }

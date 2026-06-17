@@ -42,7 +42,7 @@ const App = () => {
     {
       degree: 'Student at the Faculty of Automatic Control and Computer Science',
       university: 'Gheorghe Asachi Technical University of Iași',
-      years: 'October 2019 - Current'
+      years: 'October 2019 - June 2023'
     }
   ];
 

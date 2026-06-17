@@ -1,7 +1,8 @@
 import React from 'react';
+import { HashRouter, Routes, Route, NavLink } from 'react-router-dom';
 
-const App = () => {
-  const personalInfo = {
+const data = {
+  personalInfo: {
     name: 'Vlad-Ioan Codreanu',
     title: 'Entry Level Web Developer (Aspiring)',
     email: 'codreanu.vladd@gmail.com',
@@ -9,15 +10,15 @@ const App = () => {
     linkedin: 'www.linkedin.com/in/codreanu-vlad-961126217/',
     github: 'github.com/VladC0d',
     location: 'Iași, Romania'
-  };
+  },
 
-  const summary = `Hardworking and passionate with strong organizational skills. Ready to help team achieve company goals. Currently following a JavaScript course, having learned fundamentals and basic knowledge regarding CSS and HTML, interested in landing an entry-level web developer job. Also has basic knowledge of Matlab and C++.`;
+  summary: `Hardworking and passionate with strong organizational skills. Ready to help team achieve company goals. Currently following a JavaScript course, having learned fundamentals and basic knowledge regarding CSS and HTML, interested in landing an entry-level web developer job. Also has basic knowledge of Matlab and C++.`,
 
-  const experience = [
+  experience: [
     {
       title: 'Insurance Agent',
       company: 'Generali',
-      years: 'October 2024 - Current',
+      years: 'October 2024 – Current',
       description: [
         'Educating clients about different insurance options and benefits.',
         'Analyzing customer needs to recommend suitable coverage.',
@@ -28,7 +29,7 @@ const App = () => {
     {
       title: 'Front End Internship (React)',
       company: 'Pentalog',
-      years: 'June 2023 - September 2023',
+      years: 'June 2023 – September 2023',
       description: [
         'Actively participated in team meetings, contributing ideas and insights to discussions.',
         'Collaborated with cross-functional teams to enhance project understanding and foster a positive and inclusive work environment.',
@@ -36,46 +37,12 @@ const App = () => {
         'Maintained up-to-date knowledge of React and front-end development trends by attending webinars, reading industry blogs, and exploring emerging technologies.'
       ]
     }
-  ];
+  ],
 
-  const education = [
-    {
-      degree: 'Student at the Faculty of Automatic Control and Computer Science',
-      university: 'Gheorghe Asachi Technical University of Iași',
-      years: 'October 2019 - June 2023'
-    }
-  ];
-
-  const skills = {
-    Languages: ['Romanian (Mother tongue)', 'English (C1)', 'JavaScript', 'HTML', 'CSS', 'Matlab (Basics)', 'C++ (Basics)'],
-    'Digital Skills': ['Social Media', 'Microsoft Office', 'SAGA C – Accounting Software', 'Windows XP / 7 / 8 / 10'],
-    Other: ['Driving Licence: B']
-  };
-
-  const certifications = [
-    {
-      name: 'Salesforce Administrator',
-      issuer: 'OSF Digital – OSF Academy',
-      date: 'June 10, 2026',
-      description: 'Completed a 5-week global training program preparing new talents for the Salesforce technology market.',
-      link: 'https://certificate.osf.digital/71177',
-      id: '071177'
-    }
-  ];
-
-  const projects = [
-    {
-      name: 'Projects',
-      years: 'January 2022 - Current',
-      description: 'Here you will find some of the projects I have done and fully understood.',
-      link: 'https://github.com/VladC0d'
-    }
-  ];
-
-  const volunteering = [
+  volunteering: [
     {
       event: 'Afterhills Iași',
-      years: 'August 23, 2019 – September 1, 2019',
+      years: 'August 23 – September 1, 2019',
       description: [
         'Helper with organization and planning.',
         'Greeted visitors and answered questions about program, requirements and opportunities.',
@@ -84,9 +51,177 @@ const App = () => {
         'Maintained clean facilities to better serve program needs.'
       ]
     }
-  ];
+  ],
 
+  education: [
+    {
+      degree: 'Faculty of Automatic Control and Computer Science',
+      university: 'Gheorghe Asachi Technical University of Iași',
+      years: 'October 2019 – June 2023'
+    }
+  ],
+
+  certifications: [
+    {
+      name: 'Salesforce Administrator',
+      issuer: 'OSF Digital – OSF Academy',
+      date: 'June 10, 2026',
+      description: 'Completed a 5-week global training program preparing new talents for the Salesforce technology market.',
+      link: 'https://certificate.osf.digital/71177'
+    }
+  ],
+
+  skills: {
+    Languages: ['Romanian (Mother tongue)', 'English (C1)', 'JavaScript', 'HTML', 'CSS', 'Matlab (Basics)', 'C++ (Basics)'],
+    'Digital Skills': ['Social Media', 'Microsoft Office', 'SAGA C – Accounting Software', 'Windows XP / 7 / 8 / 10'],
+    Other: ['Driving Licence: B']
+  },
+
+  projects: [
+    {
+      name: 'Projects',
+      years: 'January 2022 – Current',
+      description: 'Here you will find some of the projects I have done and fully understood.',
+      link: 'https://github.com/VladC0d'
+    }
+  ]
+};
+
+// ── Shared pieces ─────────────────────────────────────────────────────────────
+
+const EntryItem = ({ title, sub, date, description, link, linkLabel }) => (
+  <div className="entry-item">
+    <div className="entry-header">
+      <h3>{title}</h3>
+      {date && <span className="entry-date">{date}</span>}
+    </div>
+    {sub && <p className="entry-sub">{sub}</p>}
+    {typeof description === 'string'
+      ? <p className="entry-desc">{description}</p>
+      : description && (
+          <ul>
+            {description.map((pt, i) => <li key={i}>{pt}</li>)}
+          </ul>
+        )}
+    {link && (
+      <a className="entry-link" href={link} target="_blank" rel="noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+          <path fillRule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clipRule="evenodd"/>
+        </svg>
+        {linkLabel || link}
+      </a>
+    )}
+  </div>
+);
+
+// ── Pages ─────────────────────────────────────────────────────────────────────
+
+const About = () => (
+  <div className="page-content">
+    <h2 className="section-title">About Me</h2>
+    <p className="summary-text">{data.summary}</p>
+  </div>
+);
+
+const Experience = () => (
+  <div className="page-content">
+    <h2 className="section-title">Work Experience</h2>
+    {data.experience.map((job, i) => (
+      <EntryItem key={i} title={job.title} sub={job.company} date={job.years} description={job.description} />
+    ))}
+    <h2 className="section-title" style={{ marginTop: '32px' }}>Volunteering</h2>
+    {data.volunteering.map((vol, i) => (
+      <EntryItem key={i} title={vol.event} date={vol.years} description={vol.description} />
+    ))}
+  </div>
+);
+
+const Education = () => (
+  <div className="page-content">
+    <h2 className="section-title">Education and Training</h2>
+    {data.education.map((edu, i) => (
+      <EntryItem key={i} title={edu.degree} sub={edu.university} date={edu.years} />
+    ))}
+    <h2 className="section-title" style={{ marginTop: '32px' }}>Certifications</h2>
+    {data.certifications.map((cert, i) => (
+      <EntryItem key={i} title={cert.name} sub={cert.issuer} date={cert.date} description={cert.description} link={cert.link} linkLabel="View certificate" />
+    ))}
+  </div>
+);
+
+const Skills = () => (
+  <div className="page-content">
+    <h2 className="section-title">Skills</h2>
+    {Object.entries(data.skills).map(([category, items], i) => (
+      <div key={i} className="skills-category">
+        <h3>{category}</h3>
+        <div className="skills-list">
+          {items.map((item, j) => <span key={j} className="skill-tag">{item}</span>)}
+        </div>
+      </div>
+    ))}
+  </div>
+);
+
+const Projects = () => (
+  <div className="page-content">
+    <h2 className="section-title">Projects</h2>
+    {data.projects.map((project, i) => (
+      <EntryItem key={i} title={project.name} date={project.years} description={project.description} link={project.link} />
+    ))}
+  </div>
+);
+
+// ── Header ────────────────────────────────────────────────────────────────────
+
+const Header = () => {
+  const { name, title, email, phone, linkedin, github, location } = data.personalInfo;
   return (
+    <header className="header">
+      <h1>{name}</h1>
+      <p className="subtitle">{title}</p>
+      <div className="header-info">
+        <span className="header-info-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" aria-hidden="true"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>
+          <a href={`mailto:${email}`}>{email}</a>
+        </span>
+        <span className="header-info-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" aria-hidden="true"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 1.48a1 1 0 01-.542 1.353l-1.655.828a8.001 8.001 0 003.868 3.868l.828-1.655a1 1 0 011.353-.542l1.48.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.823 18 2 12.177 2 5V3z"/></svg>
+          {phone}
+        </span>
+        <span className="header-info-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          <a href={`https://${linkedin}`} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </span>
+        <span className="header-info-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" aria-hidden="true"><path fillRule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.417 2.865 8.153 6.839 9.489.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.007.07 1.532 1.03 1.532 1.03.892 1.529 2.342 1.087 2.91.832.092-.647.35-1.087.636-1.338-2.22-.253-4.555-1.115-4.555-4.948 0-1.09.39-1.984 1.03-2.682-.104-.253-.448-1.27.098-2.65 0 0 .84-.268 2.75 1.025A9.564 9.564 0 0110 4.844c.85.004 1.7.116 2.504.337 1.909-1.293 2.747-1.025 2.747-1.025.546 1.38.202 2.398.098 2.65.64.698 1.029 1.592 1.029 2.682 0 3.841-2.339 4.685-4.566 4.935.359.307.678.915.678 1.846 0 1.33-.012 2.41-.012 2.74 0 .268.18.579.688.482C17.13 18.149 20 14.414 20 10.017A10.017 10.017 0 0010 0z" clipRule="evenodd"/></svg>
+          <a href={`https://${github}`} target="_blank" rel="noopener noreferrer">GitHub</a>
+        </span>
+        <span className="header-info-item">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" aria-hidden="true"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd"/></svg>
+          {location}
+        </span>
+      </div>
+    </header>
+  );
+};
+
+// ── Navbar ────────────────────────────────────────────────────────────────────
+
+const Navbar = () => (
+  <nav className="cv-nav">
+    <NavLink to="/" end>About</NavLink>
+    <NavLink to="/experience">Experience</NavLink>
+    <NavLink to="/education">Education</NavLink>
+    <NavLink to="/skills">Skills</NavLink>
+    <NavLink to="/projects">Projects</NavLink>
+  </nav>
+);
+
+// ── App ───────────────────────────────────────────────────────────────────────
+
+const App = () => (
+  <HashRouter>
     <div className="cv-container">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
@@ -130,7 +265,6 @@ const App = () => {
           width: 100%;
           justify-content: flex-end;
         }
-
         .print-button:hover { background: #1d4ed8; }
 
         /* ── CV card ── */
@@ -150,7 +284,6 @@ const App = () => {
           padding: 44px 48px 36px;
           text-align: center;
         }
-
         .header h1 {
           font-size: 34px;
           font-weight: 700;
@@ -158,7 +291,6 @@ const App = () => {
           margin: 0 0 6px;
           letter-spacing: -0.01em;
         }
-
         .header .subtitle {
           font-size: 13px;
           font-weight: 600;
@@ -167,7 +299,6 @@ const App = () => {
           letter-spacing: 0.12em;
           margin: 0 0 24px;
         }
-
         .header-info {
           display: flex;
           flex-wrap: wrap;
@@ -176,40 +307,69 @@ const App = () => {
           font-size: 13px;
           color: rgba(255,255,255,0.88);
         }
-
         .header-info-item {
           display: flex;
           align-items: center;
           gap: 6px;
         }
-
         .header-info-item svg {
           width: 15px;
           height: 15px;
           flex-shrink: 0;
           fill: currentColor;
         }
-
         .header-info-item a {
           color: rgba(255,255,255,0.88);
           text-decoration: none;
         }
-
         .header-info-item a:hover {
           color: #fff;
           text-decoration: underline;
         }
 
-        /* ── Body sections ── */
-        .cv-body {
-          padding: 36px 48px 40px;
+        /* ── Navbar ── */
+        .cv-nav {
+          display: flex;
+          overflow-x: auto;
+          border-bottom: 1px solid #e5e7eb;
+          padding: 0 48px;
+          background: #fff;
+          position: sticky;
+          top: 0;
+          z-index: 10;
+          scrollbar-width: none;
+        }
+        .cv-nav::-webkit-scrollbar { display: none; }
+
+        .cv-nav a {
+          flex-shrink: 0;
+          padding: 14px 16px;
+          font-size: 13px;
+          font-weight: 600;
+          color: #6b7280;
+          text-decoration: none;
+          border-bottom: 2px solid transparent;
+          margin-bottom: -1px;
+          transition: color 0.15s, border-color 0.15s;
+          letter-spacing: 0.03em;
+          white-space: nowrap;
+        }
+        .cv-nav a:hover { color: #374151; }
+        .cv-nav a.active {
+          color: #2563eb;
+          border-bottom-color: #2563eb;
         }
 
-        .section {
-          margin-bottom: 32px;
+        /* ── Page content ── */
+        .page-content {
+          padding: 36px 48px 44px;
+          animation: fadeIn 0.2s ease-out;
         }
 
-        .section:last-child { margin-bottom: 0; }
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(8px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
 
         .section-title {
           font-size: 11px;
@@ -219,43 +379,21 @@ const App = () => {
           letter-spacing: 0.12em;
           border-bottom: 2px solid #2563eb;
           padding-bottom: 6px;
-          margin-bottom: 18px;
+          margin: 0 0 18px;
         }
-
-        /* ── Animations ── */
-        @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(16px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-
-        .summary-text,
-        .entry-item,
-        .skills-category {
-          animation: fadeInUp 0.5s ease-out both;
-        }
-
-        .section:nth-child(1) .summary-text  { animation-delay: 0.05s; }
-        .section:nth-child(2) .entry-item:nth-child(1) { animation-delay: 0.10s; }
-        .section:nth-child(2) .entry-item:nth-child(2) { animation-delay: 0.18s; }
-        .section:nth-child(3) .entry-item:nth-child(1) { animation-delay: 0.10s; }
-        .section:nth-child(4) .skills-category:nth-child(1) { animation-delay: 0.05s; }
-        .section:nth-child(4) .skills-category:nth-child(2) { animation-delay: 0.12s; }
-        .section:nth-child(4) .skills-category:nth-child(3) { animation-delay: 0.19s; }
-        .section:nth-child(5) .entry-item:nth-child(1) { animation-delay: 0.08s; }
-        .section:nth-child(6) .entry-item:nth-child(1) { animation-delay: 0.08s; }
 
         /* ── Summary ── */
         .summary-text {
           color: #4b5563;
           line-height: 1.75;
           font-size: 15px;
+          margin: 0;
         }
 
-        /* ── Experience / Education / Projects / Volunteering ── */
+        /* ── Entry items ── */
         .entry-item {
-          margin-bottom: 22px;
+          margin-bottom: 24px;
         }
-
         .entry-item:last-child { margin-bottom: 0; }
 
         .entry-header {
@@ -265,33 +403,28 @@ const App = () => {
           flex-wrap: wrap;
           gap: 4px;
         }
-
         .entry-item h3 {
           font-size: 16px;
           font-weight: 600;
           color: #111827;
           margin: 0;
         }
-
         .entry-date {
           font-size: 13px;
           color: #6b7280;
           white-space: nowrap;
         }
-
         .entry-sub {
           font-size: 14px;
           color: #2563eb;
           font-weight: 500;
           margin: 3px 0 0;
         }
-
         .entry-item ul {
           list-style: none;
           padding: 0;
           margin: 10px 0 0;
         }
-
         .entry-item ul li {
           position: relative;
           padding-left: 16px;
@@ -300,41 +433,33 @@ const App = () => {
           color: #374151;
           line-height: 1.6;
         }
-
         .entry-item ul li::before {
           content: '–';
           position: absolute;
           left: 0;
           color: #9ca3af;
         }
-
         .entry-desc {
           margin: 8px 0 0;
           font-size: 14px;
           color: #4b5563;
           line-height: 1.6;
         }
-
         .entry-link {
           display: inline-flex;
           align-items: center;
           gap: 5px;
-          margin-top: 6px;
+          margin-top: 8px;
           font-size: 13px;
           color: #2563eb;
           text-decoration: none;
           font-weight: 500;
         }
-
         .entry-link:hover { text-decoration: underline; }
 
         /* ── Skills ── */
-        .skills-category {
-          margin-bottom: 14px;
-        }
-
+        .skills-category { margin-bottom: 20px; }
         .skills-category:last-child { margin-bottom: 0; }
-
         .skills-category h3 {
           font-size: 13px;
           font-weight: 600;
@@ -343,13 +468,11 @@ const App = () => {
           text-transform: uppercase;
           letter-spacing: 0.06em;
         }
-
         .skills-list {
           display: flex;
           flex-wrap: wrap;
           gap: 8px;
         }
-
         .skill-tag {
           background: #eff6ff;
           color: #1d4ed8;
@@ -363,37 +486,27 @@ const App = () => {
         /* ── Responsive ── */
         @media (max-width: 640px) {
           .header { padding: 32px 24px 28px; }
-          .cv-body  { padding: 28px 24px 32px; }
           .header h1 { font-size: 26px; }
-          .entry-header { flex-direction: column; }
+          .cv-nav { padding: 0 16px; }
+          .page-content { padding: 28px 24px 36px; }
           .print-button { justify-content: center; }
+          .entry-header { flex-direction: column; }
         }
 
         /* ── Print ── */
         @media print {
           body { background: #fff; }
-
           .cv-container { padding: 0; }
           .print-button { display: none; }
-
-          .cv-page {
-            box-shadow: none;
-            border-radius: 0;
-            max-width: 100%;
-          }
-
+          .cv-nav { display: none; }
+          .cv-page { box-shadow: none; border-radius: 0; max-width: 100%; }
           .header {
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
           }
-
-          .section { break-inside: avoid; }
+          .page-content { break-inside: avoid; }
           .entry-item { break-inside: avoid; }
-
-          @keyframes fadeInUp {
-            from { opacity: 1; transform: none; }
-            to   { opacity: 1; transform: none; }
-          }
+          @keyframes fadeIn { from { opacity:1; transform:none; } to { opacity:1; transform:none; } }
         }
       `}</style>
 
@@ -405,168 +518,18 @@ const App = () => {
       </button>
 
       <div className="cv-page">
-        {/* Header */}
-        <header className="header">
-          <h1>{personalInfo.name}</h1>
-          <p className="subtitle">{personalInfo.title}</p>
-          <div className="header-info">
-            <span className="header-info-item">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" aria-hidden="true">
-                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
-                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
-              </svg>
-              <a href={`mailto:${personalInfo.email}`}>{personalInfo.email}</a>
-            </span>
-            <span className="header-info-item">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" aria-hidden="true">
-                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 1.48a1 1 0 01-.542 1.353l-1.655.828a8.001 8.001 0 003.868 3.868l.828-1.655a1 1 0 011.353-.542l1.48.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.823 18 2 12.177 2 5V3z"/>
-              </svg>
-              {personalInfo.phone}
-            </span>
-            <span className="header-info-item">
-              {/* LinkedIn brand icon */}
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-              </svg>
-              <a href={`https://${personalInfo.linkedin}`} target="_blank" rel="noopener noreferrer">LinkedIn</a>
-            </span>
-            <span className="header-info-item">
-              {/* GitHub brand icon */}
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" aria-hidden="true">
-                <path fillRule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.417 2.865 8.153 6.839 9.489.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.007.07 1.532 1.03 1.532 1.03.892 1.529 2.342 1.087 2.91.832.092-.647.35-1.087.636-1.338-2.22-.253-4.555-1.115-4.555-4.948 0-1.09.39-1.984 1.03-2.682-.104-.253-.448-1.27.098-2.65 0 0 .84-.268 2.75 1.025A9.564 9.564 0 0110 4.844c.85.004 1.7.116 2.504.337 1.909-1.293 2.747-1.025 2.747-1.025.546 1.38.202 2.398.098 2.65.64.698 1.029 1.592 1.029 2.682 0 3.841-2.339 4.685-4.566 4.935.359.307.678.915.678 1.846 0 1.33-.012 2.41-.012 2.74 0 .268.18.579.688.482C17.13 18.149 20 14.414 20 10.017A10.017 10.017 0 0010 0z" clipRule="evenodd"/>
-              </svg>
-              <a href={`https://${personalInfo.github}`} target="_blank" rel="noopener noreferrer">GitHub</a>
-            </span>
-            <span className="header-info-item">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" aria-hidden="true">
-                <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd"/>
-              </svg>
-              {personalInfo.location}
-            </span>
-          </div>
-        </header>
-
-        <div className="cv-body">
-          {/* Summary */}
-          <section className="section">
-            <h2 className="section-title">Summary</h2>
-            <p className="summary-text">{summary}</p>
-          </section>
-
-          {/* Work Experience */}
-          <section className="section">
-            <h2 className="section-title">Work Experience</h2>
-            {experience.map((job, index) => (
-              <div key={index} className="entry-item">
-                <div className="entry-header">
-                  <h3>{job.title}</h3>
-                  <span className="entry-date">{job.years}</span>
-                </div>
-                <p className="entry-sub">{job.company}</p>
-                <ul>
-                  {job.description.map((point, i) => (
-                    <li key={i}>{point}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </section>
-
-          {/* Education */}
-          <section className="section">
-            <h2 className="section-title">Education and Training</h2>
-            {education.map((edu, index) => (
-              <div key={index} className="entry-item">
-                <div className="entry-header">
-                  <h3>{edu.degree}</h3>
-                  <span className="entry-date">{edu.years}</span>
-                </div>
-                <p className="entry-sub">{edu.university}</p>
-              </div>
-            ))}
-          </section>
-
-          {/* Certifications */}
-          <section className="section">
-            <h2 className="section-title">Certifications</h2>
-            {certifications.map((cert, index) => (
-              <div key={index} className="entry-item">
-                <div className="entry-header">
-                  <h3>{cert.name}</h3>
-                  <span className="entry-date">{cert.date}</span>
-                </div>
-                <p className="entry-sub">{cert.issuer}</p>
-                <p className="entry-desc">{cert.description}</p>
-                {cert.link && (
-                  <a className="entry-link" href={cert.link} target="_blank" rel="noopener noreferrer">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-                      <path fillRule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clipRule="evenodd"/>
-                    </svg>
-                    View certificate
-                  </a>
-                )}
-              </div>
-            ))}
-          </section>
-
-          {/* Skills */}
-          <section className="section">
-            <h2 className="section-title">Skills</h2>
-            {Object.entries(skills).map(([category, items], index) => (
-              <div key={index} className="skills-category">
-                <h3>{category}</h3>
-                <div className="skills-list">
-                  {items.map((item, i) => (
-                    <span key={i} className="skill-tag">{item}</span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </section>
-
-          {/* Projects */}
-          <section className="section">
-            <h2 className="section-title">Projects</h2>
-            {projects.map((project, index) => (
-              <div key={index} className="entry-item">
-                <div className="entry-header">
-                  <h3>{project.name}</h3>
-                  <span className="entry-date">{project.years}</span>
-                </div>
-                <p className="entry-desc">{project.description}</p>
-                {project.link && (
-                  <a className="entry-link" href={project.link} target="_blank" rel="noopener noreferrer">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-                      <path fillRule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clipRule="evenodd"/>
-                    </svg>
-                    {project.link}
-                  </a>
-                )}
-              </div>
-            ))}
-          </section>
-
-          {/* Volunteering */}
-          <section className="section">
-            <h2 className="section-title">Volunteering</h2>
-            {volunteering.map((vol, index) => (
-              <div key={index} className="entry-item">
-                <div className="entry-header">
-                  <h3>{vol.event}</h3>
-                  <span className="entry-date">{vol.years}</span>
-                </div>
-                <ul>
-                  {vol.description.map((point, i) => (
-                    <li key={i}>{point}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </section>
-        </div>
+        <Header />
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<About />} />
+          <Route path="/experience" element={<Experience />} />
+          <Route path="/education" element={<Education />} />
+          <Route path="/skills" element={<Skills />} />
+          <Route path="/projects" element={<Projects />} />
+        </Routes>
       </div>
     </div>
-  );
-};
+  </HashRouter>
+);
 
 export default App;

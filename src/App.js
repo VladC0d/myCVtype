@@ -457,11 +457,70 @@ const App = () => (
       }
 
       /* ── Responsive ── */
-      @media (max-width: 640px) {
-        .cv { grid-template-columns: 1fr; }
-        .photo-wrap { aspect-ratio: 4/3; }
-        .page-bg { padding: 16px 12px 40px; }
-        .content { padding: 24px 20px; }
+      @media (max-width: 680px) {
+        .page-bg { padding: 0; align-items: stretch; }
+
+        .cv {
+          grid-template-columns: 1fr;
+          border-radius: 0;
+          box-shadow: none;
+          min-height: 100vh;
+        }
+
+        /* Photo: landscape crop on mobile */
+        .photo-wrap { aspect-ratio: 4/3; max-height: 260px; }
+
+        /* Sidebar: horizontal wrap for sections on mobile */
+        .sidebar { display: block; }
+
+        .role-badge {
+          font-size: 11px;
+          padding: 10px 16px;
+        }
+
+        .sidebar-section {
+          padding: 16px 18px;
+        }
+
+        /* Stack skill/digital tags in rows */
+        .skill-tags, .digital-tags { gap: 7px; }
+        .skill-tag, .digital-tag { font-size: 10px; padding: 4px 9px; }
+
+        /* Languages inline */
+        .lang-item { font-size: 12px; margin-bottom: 7px; }
+
+        /* Contact items */
+        .contact-item { margin-bottom: 14px; }
+        .contact-icon-box { width: 30px; height: 30px; font-size: 14px; }
+        .contact-label { font-size: 10px; }
+        .contact-value { font-size: 11px; }
+
+        /* Content area */
+        .content { padding: 24px 18px 36px; gap: 20px; }
+
+        .content-name { font-size: 26px; }
+
+        .exp-title { font-size: 14px; }
+        .exp-date { font-size: 10px; }
+        .exp-company { font-size: 12px; }
+        .exp-points li { font-size: 12px; }
+
+        .cert-entry { flex-direction: column; gap: 6px; }
+        .cert-date { align-self: flex-start; }
+        .cert-name { font-size: 14px; }
+
+        .interests-row { gap: 18px; }
+        .interest-icon { font-size: 30px; }
+        .interest-label { font-size: 11px; }
+
+        .profile-text { font-size: 13px; }
+
+        .c-heading { font-size: 13px; }
+        .sidebar-heading { font-size: 12px; }
+
+        .edu-degree { font-size: 12px; }
+        .edu-school { font-size: 11px; }
+        .edu-years { font-size: 11px; }
       }
 
       /* ── Print ── */

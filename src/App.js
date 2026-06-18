@@ -147,7 +147,7 @@ const App = () => (
         width: 100%;
         height: 100%;
         object-fit: cover;
-        object-position: center 10%;
+        object-position: 65% 70%;
         display: block;
       }
 
@@ -467,8 +467,8 @@ const App = () => (
           min-height: 100vh;
         }
 
-        /* Photo: landscape crop on mobile */
-        .photo-wrap { aspect-ratio: 4/3; max-height: 260px; }
+        /* Photo: fixed height so portrait and landscape look identical */
+        .photo-wrap { aspect-ratio: unset; height: 240px; }
 
         /* Sidebar: horizontal wrap for sections on mobile */
         .sidebar { display: block; }

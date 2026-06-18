@@ -155,7 +155,7 @@ const App = () => (
       }
 
       .role-badge {
-        background: #22d3ee;
+        background: #9CA3AF;
         color: #000;
         text-align: center;
         font-size: 10px;
@@ -183,7 +183,7 @@ const App = () => (
       .s-accent {
         width: 26px;
         height: 3px;
-        background: #22d3ee;
+        background: #9CA3AF;
         border-radius: 2px;
         margin-bottom: 14px;
       }
@@ -229,7 +229,7 @@ const App = () => (
       }
       .skill-fill {
         height: 100%;
-        background: #22d3ee;
+        background: #9CA3AF;
         border-radius: 2px;
       }
 
@@ -263,9 +263,9 @@ const App = () => (
       .digital-tag {
         font-size: 9px;
         font-weight: 600;
-        color: #22d3ee;
-        background: rgba(34,211,238,0.1);
-        border: 1px solid rgba(34,211,238,0.25);
+        color: #9CA3AF;
+        background: rgba(156,163,175,0.12);
+        border: 1px solid rgba(156,163,175,0.3);
         border-radius: 3px;
         padding: 3px 7px;
         letter-spacing: 0.03em;
@@ -282,7 +282,7 @@ const App = () => (
       .contact-icon-box {
         width: 26px;
         height: 26px;
-        background: #22d3ee;
+        background: #9CA3AF;
         border-radius: 6px;
         display: flex;
         align-items: center;
@@ -306,7 +306,7 @@ const App = () => (
         line-height: 1.4;
         text-decoration: none;
       }
-      a.contact-value:hover { color: #22d3ee; }
+      a.contact-value:hover { color: #9CA3AF; }
 
       /* ══════════════════════════════
          RIGHT CONTENT
@@ -330,7 +330,7 @@ const App = () => (
       .content-name strong { font-weight: 800; }
       .content-badge {
         display: inline-block;
-        background: #22d3ee;
+        background: #9CA3AF;
         color: #000;
         font-size: 9px;
         font-weight: 800;
@@ -352,7 +352,7 @@ const App = () => (
       .c-accent {
         width: 26px;
         height: 3px;
-        background: #22d3ee;
+        background: #9CA3AF;
         border-radius: 2px;
         margin-bottom: 12px;
       }
@@ -432,7 +432,7 @@ const App = () => (
       }
       .cert-link {
         font-size: 10px;
-        color: #22d3ee;
+        color: #9CA3AF;
         text-decoration: none;
         font-weight: 600;
       }

@@ -118,11 +118,9 @@ const EntryItem = ({ title, sub, date, description, link, linkLabel }) => (
 // ── Pages ─────────────────────────────────────────────────────────────────────
 
 const About = () => (
-  <div className="page-content about-page">
-    <h2 className="about-name">{data.personalInfo.name}</h2>
-    <div className="about-photo-wrap">
-      <img src={photoSrc} alt={data.personalInfo.name} className="about-photo" />
-    </div>
+  <div className="page-content">
+    <h2 className="section-title">Summary</h2>
+    <p className="summary-text">{data.summary}</p>
   </div>
 );
 
@@ -226,6 +224,8 @@ const Navbar = () => (
 const App = () => (
   <HashRouter>
     <div className="cv-container">
+      {/* Full-screen background photo */}
+      <div className="bg-photo" aria-hidden="true" />
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
@@ -236,10 +236,28 @@ const App = () => (
           font-family: 'Inter', sans-serif;
           -webkit-font-smoothing: antialiased;
           -moz-osx-font-smoothing: grayscale;
-          background-color: #f0f4f8;
+          background-color: #0a0a0a;
+        }
+
+        /* ── Full-screen background photo ── */
+        .bg-photo {
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          /* square big enough to cover all sides after rotation */
+          width: 100vmax;
+          height: 100vmax;
+          transform: translate(-50%, -50%) rotate(90deg);
+          background-image: url(${photoSrc});
+          background-size: cover;
+          background-position: center top;
+          filter: brightness(0.45);
+          z-index: 0;
         }
 
         .cv-container {
+          position: relative;
+          z-index: 1;
           min-height: 100vh;
           padding: 32px 20px 48px;
           display: flex;
@@ -459,46 +477,6 @@ const App = () => (
           font-weight: 500;
         }
         .entry-link:hover { text-decoration: underline; }
-
-        /* ── About / Summary page ── */
-        .about-page {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          padding-top: 48px;
-          padding-bottom: 56px;
-          gap: 28px;
-        }
-        .about-name {
-          font-size: 30px;
-          font-weight: 700;
-          color: #111827;
-          margin: 0;
-          letter-spacing: -0.01em;
-          text-align: center;
-        }
-        /* portrait card — image is stored landscape/rotated so we correct it */
-        .about-photo-wrap {
-          position: relative;
-          width: 260px;
-          height: 340px;
-          overflow: hidden;
-          border-radius: 16px;
-          box-shadow: 0 8px 32px rgba(37,99,235,0.18);
-          border: 3px solid #2563eb;
-          flex-shrink: 0;
-        }
-        .about-photo {
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          width: 340px;
-          height: 260px;
-          max-width: none;
-          object-fit: cover;
-          object-position: center top;
-          transform: translate(-50%, -50%) rotate(-90deg);
-        }
 
         /* ── Skills ── */
         .skills-category { margin-bottom: 20px; }

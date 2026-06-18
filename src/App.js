@@ -1,5 +1,5 @@
-import React from 'react';
-import { HashRouter, Routes, Route, NavLink } from 'react-router-dom';
+import React, { useState } from 'react';
+import { HashRouter, Routes, Route, NavLink, useNavigate } from 'react-router-dom';
 import photoSrc from './photo.jpeg';
 
 const data = {
@@ -207,25 +207,51 @@ const Header = () => {
   );
 };
 
-// ── Navbar ────────────────────────────────────────────────────────────────────
+// ── Hamburger menu ────────────────────────────────────────────────────────────
 
-const Navbar = () => (
-  <nav className="cv-nav">
-    <NavLink to="/" end>Summary</NavLink>
-    <NavLink to="/experience">Work Experience</NavLink>
-    <NavLink to="/education">Education</NavLink>
-    <NavLink to="/skills">Skills</NavLink>
-    <NavLink to="/projects">Projects</NavLink>
-  </nav>
-);
+const Menu = ({ open, onClose }) => {
+  const navigate = useNavigate();
+  const go = (path) => { navigate(path); onClose(); };
+  if (!open) return null;
+  return (
+    <>
+      <div className="menu-overlay" onClick={onClose} />
+      <nav className="slide-menu">
+        <button className="menu-close" onClick={onClose} aria-label="Close menu">✕</button>
+        {[
+          ['/', 'Summary'],
+          ['/experience', 'Work Experience'],
+          ['/education', 'Education'],
+          ['/skills', 'Skills'],
+          ['/projects', 'Projects'],
+        ].map(([path, label]) => (
+          <NavLink key={path} to={path} end={path === '/'} onClick={() => go(path)}>{label}</NavLink>
+        ))}
+      </nav>
+    </>
+  );
+};
 
 // ── App ───────────────────────────────────────────────────────────────────────
 
-const App = () => (
+const App = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  return (
   <HashRouter>
     <div className="cv-container">
       {/* Full-screen background photo */}
       <div className="bg-photo" aria-hidden="true" />
+
+      {/* Hamburger button */}
+      <button
+        className={`hamburger${menuOpen ? ' open' : ''}`}
+        onClick={() => setMenuOpen(o => !o)}
+        aria-label="Toggle menu"
+      >
+        <span /><span /><span />
+      </button>
+
+      <Menu open={menuOpen} onClose={() => setMenuOpen(false)} />
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
@@ -242,17 +268,99 @@ const App = () => (
         /* ── Full-screen background photo ── */
         .bg-photo {
           position: fixed;
-          top: 50%;
-          left: 50%;
-          /* square big enough to cover all sides after rotation */
-          width: 100vmax;
-          height: 100vmax;
-          transform: translate(-50%, -50%) rotate(90deg);
+          inset: 0;
           background-image: url(${photoSrc});
           background-size: cover;
-          background-position: center top;
+          background-position: center;
           filter: brightness(0.45);
           z-index: 0;
+        }
+
+        /* ── Hamburger button ── */
+        .hamburger {
+          position: fixed;
+          top: 16px;
+          left: 16px;
+          z-index: 200;
+          width: 44px;
+          height: 44px;
+          background: rgba(255,255,255,0.15);
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          border: 1px solid rgba(255,255,255,0.25);
+          border-radius: 10px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          gap: 5px;
+          cursor: pointer;
+          padding: 0;
+        }
+        .hamburger span {
+          display: block;
+          width: 20px;
+          height: 2px;
+          background: #fff;
+          border-radius: 2px;
+          transition: transform 0.2s, opacity 0.2s;
+        }
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* ── Slide menu ── */
+        .menu-overlay {
+          position: fixed;
+          inset: 0;
+          background: rgba(0,0,0,0.45);
+          z-index: 150;
+        }
+        .slide-menu {
+          position: fixed;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          width: 260px;
+          background: rgba(10,14,26,0.92);
+          backdrop-filter: blur(16px);
+          -webkit-backdrop-filter: blur(16px);
+          z-index: 160;
+          display: flex;
+          flex-direction: column;
+          padding: 72px 0 32px;
+          border-right: 1px solid rgba(255,255,255,0.08);
+        }
+        .menu-close {
+          position: absolute;
+          top: 16px;
+          right: 16px;
+          background: none;
+          border: none;
+          color: rgba(255,255,255,0.5);
+          font-size: 18px;
+          cursor: pointer;
+          line-height: 1;
+          padding: 4px 8px;
+        }
+        .menu-close:hover { color: #fff; }
+        .slide-menu a {
+          padding: 15px 28px;
+          color: rgba(255,255,255,0.7);
+          text-decoration: none;
+          font-size: 15px;
+          font-weight: 600;
+          letter-spacing: 0.02em;
+          border-left: 3px solid transparent;
+          transition: color 0.15s, background 0.15s, border-color 0.15s;
+        }
+        .slide-menu a:hover {
+          color: #fff;
+          background: rgba(255,255,255,0.07);
+        }
+        .slide-menu a.active {
+          color: #60a5fa;
+          border-left-color: #60a5fa;
         }
 
         .cv-container {
@@ -346,39 +454,6 @@ const App = () => (
         .header-info-item a:hover {
           color: #fff;
           text-decoration: underline;
-        }
-
-        /* ── Navbar ── */
-        .cv-nav {
-          display: flex;
-          overflow-x: auto;
-          border-bottom: 1px solid #e5e7eb;
-          padding: 0 48px;
-          background: #fff;
-          position: sticky;
-          top: 0;
-          z-index: 10;
-          scrollbar-width: none;
-        }
-        .cv-nav::-webkit-scrollbar { display: none; }
-
-        .cv-nav a {
-          flex-shrink: 0;
-          padding: 14px 16px;
-          font-size: 13px;
-          font-weight: 600;
-          color: #6b7280;
-          text-decoration: none;
-          border-bottom: 2px solid transparent;
-          margin-bottom: -1px;
-          transition: color 0.15s, border-color 0.15s;
-          letter-spacing: 0.03em;
-          white-space: nowrap;
-        }
-        .cv-nav a:hover { color: #374151; }
-        .cv-nav a.active {
-          color: #2563eb;
-          border-bottom-color: #2563eb;
         }
 
         /* ── Page content ── */
@@ -508,7 +583,6 @@ const App = () => (
         @media (max-width: 640px) {
           .header { padding: 32px 24px 28px; }
           .header h1 { font-size: 26px; }
-          .cv-nav { padding: 0 16px; }
           .page-content { padding: 28px 24px 36px; }
           .print-button { justify-content: center; }
           .entry-header { flex-direction: column; }
@@ -518,8 +592,8 @@ const App = () => (
         @media print {
           body { background: #fff; }
           .cv-container { padding: 0; }
-          .print-button { display: none; }
-          .cv-nav { display: none; }
+          .bg-photo { display: none; }
+          .print-button, .hamburger, .menu-overlay, .slide-menu { display: none; }
           .cv-page { box-shadow: none; border-radius: 0; max-width: 100%; }
           .header {
             -webkit-print-color-adjust: exact;
@@ -540,7 +614,6 @@ const App = () => (
 
       <div className="cv-page">
         <Header />
-        <Navbar />
         <Routes>
           <Route path="/" element={<About />} />
           <Route path="/experience" element={<Experience />} />
@@ -551,6 +624,7 @@ const App = () => (
       </div>
     </div>
   </HashRouter>
-);
+  );
+};
 
 export default App;

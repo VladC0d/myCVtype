@@ -16,7 +16,7 @@ const CV = {
     {
       degree: 'Engineer — Information & Communication Technologies',
       school: 'Gheorghe Asachi Technical University',
-      years: 'Just Graduated',
+      years: 'Graduated',
     },
   ],
   skills: [

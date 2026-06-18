@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { HashRouter, Routes, Route, NavLink, useNavigate } from 'react-router-dom';
+import photoSrc from './photo.jpeg';
 
 const data = {
   personalInfo: {
@@ -14,11 +15,13 @@ const data = {
 
   summary: `Hardworking and passionate with strong organizational skills. Ready to help team achieve company goals. Currently following a JavaScript course, having learned fundamentals and basic knowledge regarding CSS and HTML, interested in landing an entry-level web developer job. Also has basic knowledge of Matlab and C++.`,
 
+  interests: ['✈️ Travel', '🎵 Music', '👗 Fashion'],
+
   experience: [
     {
       title: 'Insurance Agent',
       company: 'Generali',
-      years: 'October 2024 – Current',
+      years: 'Oct 2024 – Now',
       description: [
         'Educating clients about different insurance options and benefits.',
         'Analyzing customer needs to recommend suitable coverage.',
@@ -29,12 +32,12 @@ const data = {
     {
       title: 'Front End Internship (React)',
       company: 'Pentalog',
-      years: 'June 2023 – September 2023',
+      years: 'Jun – Sep 2023',
       description: [
-        'Actively participated in team meetings, contributing ideas and insights to discussions.',
-        'Collaborated with cross-functional teams to enhance project understanding and foster a positive and inclusive work environment.',
-        'Made substantive contributions to actual projects, including bug fixes and feature implementations, applying theoretical knowledge to real-world scenarios.',
-        'Maintained up-to-date knowledge of React and front-end development trends by attending webinars, reading industry blogs, and exploring emerging technologies.'
+        'Actively participated in team meetings, contributing ideas and insights.',
+        'Collaborated with cross-functional teams to enhance project understanding.',
+        'Made contributions including bug fixes and feature implementations.',
+        'Maintained up-to-date knowledge of React and front-end development trends.'
       ]
     }
   ],
@@ -42,13 +45,13 @@ const data = {
   volunteering: [
     {
       event: 'Afterhills Iași',
-      years: 'August 23 – September 1, 2019',
+      role: 'Volunteer',
+      years: 'Aug – Sep 2019',
       description: [
         'Helper with organization and planning.',
-        'Greeted visitors and answered questions about program, requirements and opportunities.',
-        'Used strong interpersonal communication skills to convey information to others.',
-        'Helped program leaders with administrative support duties.',
-        'Maintained clean facilities to better serve program needs.'
+        'Greeted visitors and answered questions about the program.',
+        'Used strong interpersonal skills to convey information to others.',
+        'Helped program leaders with administrative support duties.'
       ]
     }
   ],
@@ -57,7 +60,7 @@ const data = {
     {
       degree: 'Faculty of Automatic Control and Computer Science',
       university: 'Gheorghe Asachi Technical University of Iași',
-      years: 'October 2019 – June 2023'
+      years: '2019 – 2023'
     }
   ],
 
@@ -65,149 +68,26 @@ const data = {
     {
       name: 'Salesforce Administrator',
       issuer: 'OSF Digital – OSF Academy',
-      date: 'June 10, 2026',
+      date: 'Jun 2026',
       description: 'Completed a 5-week global training program preparing new talents for the Salesforce technology market.',
       link: 'https://certificate.osf.digital/71177'
     }
   ],
 
   skills: {
-    Languages: ['Romanian (Mother tongue)', 'English (C1)', 'JavaScript', 'HTML', 'CSS', 'Matlab (Basics)', 'C++ (Basics)'],
-    'Digital Skills': ['Social Media', 'Microsoft Office', 'SAGA C – Accounting Software', 'Windows XP / 7 / 8 / 10'],
-    Other: ['Driving Licence: B']
+    Languages: ['Romanian', 'English (C1)', 'JavaScript', 'HTML', 'CSS', 'Matlab', 'C++'],
+    'Digital Skills': ['Social Media', 'Microsoft Office', 'SAGA C', 'Windows'],
+    Other: ['Driving Licence B']
   },
 
   projects: [
     {
-      name: 'Projects',
-      years: 'January 2022 – Current',
-      description: 'Here you will find some of the projects I have done and fully understood.',
+      name: 'GitHub Projects',
+      years: 'Jan 2022 – Now',
+      description: 'A collection of personal projects built while learning web development.',
       link: 'https://github.com/VladC0d'
     }
   ]
-};
-
-// ── Shared pieces ─────────────────────────────────────────────────────────────
-
-const EntryItem = ({ title, sub, date, description, link, linkLabel }) => (
-  <div className="entry-item">
-    <div className="entry-header">
-      <h3>{title}</h3>
-      {date && <span className="entry-date">{date}</span>}
-    </div>
-    {sub && <p className="entry-sub">{sub}</p>}
-    {typeof description === 'string'
-      ? <p className="entry-desc">{description}</p>
-      : description && (
-          <ul>
-            {description.map((pt, i) => <li key={i}>{pt}</li>)}
-          </ul>
-        )}
-    {link && (
-      <a className="entry-link" href={link} target="_blank" rel="noopener noreferrer">
-        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-          <path fillRule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clipRule="evenodd"/>
-        </svg>
-        {linkLabel || link}
-      </a>
-    )}
-  </div>
-);
-
-// ── Pages ─────────────────────────────────────────────────────────────────────
-
-const About = () => (
-  <div className="page-content">
-    <h2 className="section-title">Summary</h2>
-    <p className="summary-text">{data.summary}</p>
-  </div>
-);
-
-const Experience = () => (
-  <div className="page-content">
-    <h2 className="section-title">Work Experience</h2>
-    {data.experience.map((job, i) => (
-      <EntryItem key={i} title={job.title} sub={job.company} date={job.years} description={job.description} />
-    ))}
-    <h2 className="section-title" style={{ marginTop: '32px' }}>Volunteering</h2>
-    {data.volunteering.map((vol, i) => (
-      <EntryItem key={i} title={vol.event} date={vol.years} description={vol.description} />
-    ))}
-  </div>
-);
-
-const Education = () => (
-  <div className="page-content">
-    <h2 className="section-title">Education and Training</h2>
-    {data.education.map((edu, i) => (
-      <EntryItem key={i} title={edu.degree} sub={edu.university} date={edu.years} />
-    ))}
-    <h2 className="section-title" style={{ marginTop: '32px' }}>Certifications</h2>
-    {data.certifications.map((cert, i) => (
-      <EntryItem key={i} title={cert.name} sub={cert.issuer} date={cert.date} description={cert.description} link={cert.link} linkLabel="View certificate" />
-    ))}
-  </div>
-);
-
-const Skills = () => (
-  <div className="page-content">
-    <h2 className="section-title">Skills</h2>
-    {Object.entries(data.skills).map(([category, items], i) => (
-      <div key={i} className="skills-category">
-        <h3>{category}</h3>
-        <div className="skills-list">
-          {items.map((item, j) => <span key={j} className="skill-tag">{item}</span>)}
-        </div>
-      </div>
-    ))}
-    <h2 className="section-title" style={{ marginTop: '32px' }}>Certifications</h2>
-    {data.certifications.map((cert, i) => (
-      <EntryItem key={i} title={cert.name} sub={cert.issuer} date={cert.date} description={cert.description} link={cert.link} linkLabel="View certificate" />
-    ))}
-  </div>
-);
-
-const Projects = () => (
-  <div className="page-content">
-    <h2 className="section-title">Projects</h2>
-    {data.projects.map((project, i) => (
-      <EntryItem key={i} title={project.name} date={project.years} description={project.description} link={project.link} />
-    ))}
-  </div>
-);
-
-// ── Header ────────────────────────────────────────────────────────────────────
-
-const Header = () => {
-  const { name, title, email, phone, linkedin, github, location } = data.personalInfo;
-  return (
-    <header className="header">
-      <h1>{name}</h1>
-      <p className="subtitle">{title}</p>
-      <div className="header-info">
-        <span className="header-info-item">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" aria-hidden="true"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>
-          <a href={`mailto:${email}`}>{email}</a>
-        </span>
-        <span className="header-info-item">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" aria-hidden="true"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 1.48a1 1 0 01-.542 1.353l-1.655.828a8.001 8.001 0 003.868 3.868l.828-1.655a1 1 0 011.353-.542l1.48.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.823 18 2 12.177 2 5V3z"/></svg>
-          {phone}
-        </span>
-        <span className="header-info-item">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          <a href={`https://${linkedin}`} target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        </span>
-        <span className="header-info-item">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" aria-hidden="true"><path fillRule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.417 2.865 8.153 6.839 9.489.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.007.07 1.532 1.03 1.532 1.03.892 1.529 2.342 1.087 2.91.832.092-.647.35-1.087.636-1.338-2.22-.253-4.555-1.115-4.555-4.948 0-1.09.39-1.984 1.03-2.682-.104-.253-.448-1.27.098-2.65 0 0 .84-.268 2.75 1.025A9.564 9.564 0 0110 4.844c.85.004 1.7.116 2.504.337 1.909-1.293 2.747-1.025 2.747-1.025.546 1.38.202 2.398.098 2.65.64.698 1.029 1.592 1.029 2.682 0 3.841-2.339 4.685-4.566 4.935.359.307.678.915.678 1.846 0 1.33-.012 2.41-.012 2.74 0 .268.18.579.688.482C17.13 18.149 20 14.414 20 10.017A10.017 10.017 0 0010 0z" clipRule="evenodd"/></svg>
-          <a href={`https://${github}`} target="_blank" rel="noopener noreferrer">GitHub</a>
-        </span>
-        <span className="header-info-item">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" aria-hidden="true"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd"/></svg>
-          {location}
-        </span>
-      </div>
-    </header>
-  );
 };
 
 // ── Hamburger menu ────────────────────────────────────────────────────────────
@@ -220,7 +100,7 @@ const Menu = ({ open, onClose }) => {
     <>
       <div className="menu-overlay" onClick={onClose} />
       <nav className="slide-menu">
-        <button className="menu-close" onClick={onClose} aria-label="Close menu">✕</button>
+        <button className="menu-close" onClick={onClose} aria-label="Close">✕</button>
         {[
           ['/', 'Summary'],
           ['/experience', 'Work Experience'],
@@ -235,373 +115,503 @@ const Menu = ({ open, onClose }) => {
   );
 };
 
+// ── Pages ─────────────────────────────────────────────────────────────────────
+
+const About = () => (
+  <div className="page">
+    <div className="top-grid">
+      <div className="card photo-card">
+        <img src={photoSrc} alt="Vlad-Ioan Codreanu" className="profile-photo" />
+      </div>
+      <div className="card bio-card">
+        <p className="bio-text">{data.summary}</p>
+      </div>
+    </div>
+
+    <div className="card row-card">
+      <span className="row-label">Interests</span>
+      <div className="row-divider" />
+      <div className="row-pills">
+        {data.interests.map((item, i) => (
+          <span key={i} className="interest-pill">{item}</span>
+        ))}
+      </div>
+    </div>
+
+    <div className="card row-card">
+      <span className="row-label">Details</span>
+      <div className="row-divider" />
+      <div className="row-pills">
+        <span className="detail-pill">📧 {data.personalInfo.email}</span>
+        <span className="detail-pill">📞 {data.personalInfo.phone}</span>
+        <span className="detail-pill">📍 {data.personalInfo.location}</span>
+        <a className="detail-pill detail-link" href={`https://${data.personalInfo.linkedin}`} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a className="detail-pill detail-link" href={`https://${data.personalInfo.github}`} target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </div>
+  </div>
+);
+
+const Experience = () => (
+  <div className="page">
+    <div className="card-grid">
+      {data.experience.map((job, i) => (
+        <div key={i} className="card exp-card">
+          <div className="exp-header">
+            <h3>{job.title}</h3>
+            <span className="date-pill">{job.years}</span>
+          </div>
+          <p className="exp-sub">{job.company}</p>
+          <div className="card-divider" />
+          <ul className="exp-list">
+            {job.description.map((pt, j) => <li key={j}>{pt}</li>)}
+          </ul>
+        </div>
+      ))}
+    </div>
+    {data.volunteering.map((vol, i) => (
+      <div key={i} className="card exp-card" style={{ marginTop: 16 }}>
+        <div className="exp-header">
+          <h3>{vol.event}</h3>
+          <span className="date-pill">{vol.years}</span>
+        </div>
+        <p className="exp-sub">{vol.role}</p>
+        <div className="card-divider" />
+        <ul className="exp-list">
+          {vol.description.map((pt, j) => <li key={j}>{pt}</li>)}
+        </ul>
+      </div>
+    ))}
+  </div>
+);
+
+const Education = () => (
+  <div className="page">
+    <div className="card-grid">
+      {data.education.map((edu, i) => (
+        <div key={i} className="card exp-card">
+          <div className="exp-header">
+            <h3>{edu.degree}</h3>
+            <span className="date-pill">{edu.years}</span>
+          </div>
+          <p className="exp-sub">{edu.university}</p>
+        </div>
+      ))}
+      {data.certifications.map((cert, i) => (
+        <div key={i} className="card exp-card">
+          <div className="exp-header">
+            <h3>{cert.name}</h3>
+            <span className="date-pill">{cert.date}</span>
+          </div>
+          <p className="exp-sub">{cert.issuer}</p>
+          <div className="card-divider" />
+          <p className="exp-desc">{cert.description}</p>
+          <a href={cert.link} target="_blank" rel="noopener noreferrer" className="card-link">
+            View certificate →
+          </a>
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
+const Skills = () => (
+  <div className="page">
+    {Object.entries(data.skills).map(([category, items], i) => (
+      <div key={i} className="card row-card">
+        <span className="row-label">{category}</span>
+        <div className="row-divider" />
+        <div className="row-pills">
+          {items.map((item, j) => <span key={j} className="skill-pill">{item}</span>)}
+        </div>
+      </div>
+    ))}
+    {data.certifications.map((cert, i) => (
+      <div key={i} className="card row-card" style={{ alignItems: 'flex-start', flexDirection: 'column', gap: 10 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, width: '100%' }}>
+          <span className="row-label">Certified</span>
+          <div className="row-divider" />
+          <span className="skill-pill accent-pill">{cert.name}</span>
+          <span className="date-pill" style={{ marginLeft: 'auto' }}>{cert.date}</span>
+        </div>
+        <p style={{ margin: '0 0 0 0', color: '#8E8E93', fontSize: 13, paddingLeft: 0 }}>{cert.issuer}</p>
+      </div>
+    ))}
+  </div>
+);
+
+const Projects = () => (
+  <div className="page">
+    {data.projects.map((project, i) => (
+      <div key={i} className="card exp-card">
+        <div className="exp-header">
+          <h3>{project.name}</h3>
+          <span className="date-pill">{project.years}</span>
+        </div>
+        <div className="card-divider" />
+        <p className="exp-desc">{project.description}</p>
+        <a href={project.link} target="_blank" rel="noopener noreferrer" className="card-link">
+          {project.link} →
+        </a>
+      </div>
+    ))}
+  </div>
+);
+
 // ── App ───────────────────────────────────────────────────────────────────────
 
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   return (
-  <HashRouter>
-    <div className="cv-container">
-      {/* Hamburger button */}
-      <button
-        className={`hamburger${menuOpen ? ' open' : ''}`}
-        onClick={() => setMenuOpen(o => !o)}
-        aria-label="Toggle menu"
-      >
-        <span /><span /><span />
-      </button>
+    <HashRouter>
+      <div className="app">
+        <style>{`
+          @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+          *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-      <Menu open={menuOpen} onClose={() => setMenuOpen(false)} />
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
-        *, *::before, *::after { box-sizing: border-box; }
-
-        body {
-          margin: 0;
-          font-family: 'Inter', sans-serif;
-          -webkit-font-smoothing: antialiased;
-          -moz-osx-font-smoothing: grayscale;
-          background-color: #12001A;
-        }
-
-        /* ── Hamburger button ── */
-        .hamburger {
-          position: fixed;
-          top: 16px;
-          left: 16px;
-          z-index: 200;
-          width: 44px;
-          height: 44px;
-          background: rgba(255,255,255,0.15);
-          backdrop-filter: blur(10px);
-          -webkit-backdrop-filter: blur(10px);
-          border: 1px solid rgba(255,255,255,0.25);
-          border-radius: 10px;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          gap: 5px;
-          cursor: pointer;
-          padding: 0;
-        }
-        .hamburger span {
-          display: block;
-          width: 20px;
-          height: 2px;
-          background: #fff;
-          border-radius: 2px;
-          transition: transform 0.2s, opacity 0.2s;
-        }
-        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-        .hamburger.open span:nth-child(2) { opacity: 0; }
-        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-        /* ── Slide menu ── */
-        .menu-overlay {
-          position: fixed;
-          inset: 0;
-          background: rgba(0,0,0,0.45);
-          z-index: 150;
-        }
-        .slide-menu {
-          position: fixed;
-          top: 0;
-          left: 0;
-          bottom: 0;
-          width: 260px;
-          background: rgba(10,14,26,0.92);
-          backdrop-filter: blur(16px);
-          -webkit-backdrop-filter: blur(16px);
-          z-index: 160;
-          display: flex;
-          flex-direction: column;
-          padding: 72px 0 32px;
-          border-right: 1px solid rgba(255,255,255,0.08);
-        }
-        .menu-close {
-          position: absolute;
-          top: 16px;
-          right: 16px;
-          background: none;
-          border: none;
-          color: rgba(255,255,255,0.5);
-          font-size: 18px;
-          cursor: pointer;
-          line-height: 1;
-          padding: 4px 8px;
-        }
-        .menu-close:hover { color: #fff; }
-        .slide-menu a {
-          padding: 15px 28px;
-          color: rgba(255,255,255,0.7);
-          text-decoration: none;
-          font-size: 15px;
-          font-weight: 600;
-          letter-spacing: 0.02em;
-          border-left: 3px solid transparent;
-          transition: color 0.15s, background 0.15s, border-color 0.15s;
-        }
-        .slide-menu a:hover {
-          color: #fff;
-          background: rgba(255,255,255,0.07);
-        }
-        .slide-menu a.active {
-          color: #60a5fa;
-          border-left-color: #60a5fa;
-        }
-
-        .cv-container {
-          position: relative;
-          z-index: 1;
-          min-height: 100vh;
-          padding: 32px 20px 48px;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        }
-
-        /* ── Print button ── */
-        .print-button {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          margin-bottom: 20px;
-          padding: 10px 22px;
-          background: #2563eb;
-          color: #fff;
-          border: none;
-          border-radius: 6px;
-          font-size: 14px;
-          font-weight: 600;
-          cursor: pointer;
-          letter-spacing: 0.02em;
-          transition: background 0.15s;
-          align-self: flex-end;
-          max-width: 960px;
-          width: 100%;
-          justify-content: flex-end;
-        }
-        .print-button:hover { background: #1d4ed8; }
-
-        /* ── CV card ── */
-        .cv-page {
-          max-width: 960px;
-          width: 100%;
-          background: #fff;
-          box-shadow: 0 4px 24px rgba(0,0,0,0.10);
-          border-radius: 10px;
-          overflow: hidden;
-        }
-
-        /* ── Header ── */
-        .header {
-          background: linear-gradient(135deg, #0891b2 0%, #22d3ee 100%);
-          color: #fff;
-          padding: 44px 48px 36px;
-          text-align: center;
-        }
-        .header h1 {
-          font-size: 34px;
-          font-weight: 700;
-          color: #fff;
-          margin: 0 0 6px;
-          letter-spacing: -0.01em;
-        }
-        .header .subtitle {
-          font-size: 13px;
-          font-weight: 600;
-          color: rgba(255,255,255,0.75);
-          text-transform: uppercase;
-          letter-spacing: 0.12em;
-          margin: 0 0 24px;
-        }
-        .header-info {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-          gap: 12px 24px;
-          font-size: 13px;
-          color: rgba(255,255,255,0.88);
-        }
-        .header-info-item {
-          display: flex;
-          align-items: center;
-          gap: 6px;
-        }
-        .header-info-item svg {
-          width: 15px;
-          height: 15px;
-          flex-shrink: 0;
-          fill: currentColor;
-        }
-        .header-info-item a {
-          color: rgba(255,255,255,0.88);
-          text-decoration: none;
-        }
-        .header-info-item a:hover {
-          color: #fff;
-          text-decoration: underline;
-        }
-
-        /* ── Page content ── */
-        .page-content {
-          padding: 36px 48px 44px;
-          animation: fadeIn 0.2s ease-out;
-        }
-
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(8px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-
-        .section-title {
-          font-size: 11px;
-          font-weight: 700;
-          color: #FF0066;
-          text-transform: uppercase;
-          letter-spacing: 0.12em;
-          border-bottom: 2px solid #FF0066;
-          padding-bottom: 6px;
-          margin: 0 0 18px;
-        }
-
-        /* ── Summary ── */
-        .summary-text {
-          color: #4b5563;
-          line-height: 1.75;
-          font-size: 15px;
-          margin: 0;
-        }
-
-        /* ── Entry items ── */
-        .entry-item {
-          margin-bottom: 24px;
-        }
-        .entry-item:last-child { margin-bottom: 0; }
-
-        .entry-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: baseline;
-          flex-wrap: wrap;
-          gap: 4px;
-        }
-        .entry-item h3 {
-          font-size: 16px;
-          font-weight: 600;
-          color: #111827;
-          margin: 0;
-        }
-        .entry-date {
-          font-size: 13px;
-          color: #6b7280;
-          white-space: nowrap;
-        }
-        .entry-sub {
-          font-size: 14px;
-          color: #FF0066;
-          font-weight: 500;
-          margin: 3px 0 0;
-        }
-        .entry-item ul {
-          list-style: none;
-          padding: 0;
-          margin: 10px 0 0;
-        }
-        .entry-item ul li {
-          position: relative;
-          padding-left: 16px;
-          margin-bottom: 5px;
-          font-size: 14px;
-          color: #374151;
-          line-height: 1.6;
-        }
-        .entry-item ul li::before {
-          content: '–';
-          position: absolute;
-          left: 0;
-          color: #9ca3af;
-        }
-        .entry-desc {
-          margin: 8px 0 0;
-          font-size: 14px;
-          color: #4b5563;
-          line-height: 1.6;
-        }
-        .entry-link {
-          display: inline-flex;
-          align-items: center;
-          gap: 5px;
-          margin-top: 8px;
-          font-size: 13px;
-          color: #FF0066;
-          text-decoration: none;
-          font-weight: 500;
-        }
-        .entry-link:hover { text-decoration: underline; }
-
-        /* ── Skills ── */
-        .skills-category { margin-bottom: 20px; }
-        .skills-category:last-child { margin-bottom: 0; }
-        .skills-category h3 {
-          font-size: 13px;
-          font-weight: 600;
-          color: #374151;
-          margin: 0 0 8px;
-          text-transform: uppercase;
-          letter-spacing: 0.06em;
-        }
-        .skills-list {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 8px;
-        }
-        .skill-tag {
-          background: rgba(255,0,102,0.07);
-          color: #FF0066;
-          border: 1px solid rgba(255,0,102,0.3);
-          font-size: 13px;
-          font-weight: 500;
-          padding: 4px 12px;
-          border-radius: 9999px;
-        }
-
-        /* ── Responsive ── */
-        @media (max-width: 640px) {
-          .header { padding: 32px 24px 28px; }
-          .header h1 { font-size: 26px; }
-          .page-content { padding: 28px 24px 36px; }
-          .print-button { justify-content: center; }
-          .entry-header { flex-direction: column; }
-        }
-
-        /* ── Print ── */
-        @media print {
-          body { background: #fff; }
-          .cv-container { padding: 0; }
-          .print-button, .hamburger, .menu-overlay, .slide-menu { display: none; }
-          .cv-page { box-shadow: none; border-radius: 0; max-width: 100%; }
-          .header {
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
+          body {
+            font-family: 'Inter', sans-serif;
+            background: #0D0D0D;
+            color: #fff;
+            -webkit-font-smoothing: antialiased;
           }
-          .page-content { break-inside: avoid; }
-          .entry-item { break-inside: avoid; }
-          @keyframes fadeIn { from { opacity:1; transform:none; } to { opacity:1; transform:none; } }
-        }
-      `}</style>
 
-      <button className="print-button" onClick={() => window.print()}>
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-          <path fillRule="evenodd" d="M5 4v3H4a2 2 0 00-2 2v5a2 2 0 002 2h1v1a2 2 0 002 2h6a2 2 0 002-2v-1h1a2 2 0 002-2V9a2 2 0 00-2-2h-1V4a2 2 0 00-2-2H7a2 2 0 00-2 2zm2 0h6v3H7V4zm-1 9a1 1 0 100-2 1 1 0 000 2zm1 2v-1h6v1H7z" clipRule="evenodd"/>
-        </svg>
-        Print / Save as PDF
-      </button>
+          .app { min-height: 100vh; }
 
-      <div className="cv-page">
-        <Header />
+          /* ── Header ── */
+          .header {
+            background: #1C1C1E;
+            border-bottom: 1px solid #2C2C2E;
+            padding: 18px 24px 18px 72px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+          }
+          .header h1 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+            white-space: nowrap;
+          }
+          .header-dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: #FF0066;
+            flex-shrink: 0;
+          }
+          .header-title {
+            font-size: 12px;
+            color: #8E8E93;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            white-space: nowrap;
+          }
+
+          /* ── Hamburger ── */
+          .hamburger {
+            position: fixed;
+            top: 12px;
+            left: 16px;
+            z-index: 200;
+            width: 40px;
+            height: 40px;
+            background: #2C2C2E;
+            border: none;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            padding: 0;
+          }
+          .hamburger span {
+            display: block;
+            width: 18px;
+            height: 2px;
+            background: #fff;
+            border-radius: 2px;
+            transition: transform 0.2s, opacity 0.2s;
+          }
+          .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+          .hamburger.open span:nth-child(2) { opacity: 0; }
+          .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+          /* ── Slide menu ── */
+          .menu-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            z-index: 150;
+          }
+          .slide-menu {
+            position: fixed;
+            top: 0; left: 0; bottom: 0;
+            width: 240px;
+            background: #1C1C1E;
+            border-right: 1px solid #2C2C2E;
+            z-index: 160;
+            display: flex;
+            flex-direction: column;
+            padding: 64px 0 32px;
+          }
+          .menu-close {
+            position: absolute;
+            top: 14px; right: 14px;
+            background: none;
+            border: none;
+            color: #8E8E93;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 4px 8px;
+          }
+          .menu-close:hover { color: #fff; }
+          .slide-menu a {
+            padding: 14px 24px;
+            color: #8E8E93;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            border-left: 3px solid transparent;
+            transition: color 0.15s, border-color 0.15s, background 0.15s;
+          }
+          .slide-menu a:hover { color: #fff; background: rgba(255,255,255,0.04); }
+          .slide-menu a.active { color: #22d3ee; border-left-color: #22d3ee; }
+
+          /* ── Page container ── */
+          .page {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 28px 20px 48px;
+            animation: fadeIn 0.2s ease-out;
+          }
+
+          @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to   { opacity: 1; transform: translateY(0); }
+          }
+
+          /* ── Cards ── */
+          .card {
+            background: #1C1C1E;
+            border-radius: 16px;
+            padding: 24px;
+          }
+
+          /* ── Top grid: photo + bio ── */
+          .top-grid {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+          }
+          .photo-card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+          }
+          .profile-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center 30%;
+            border: 3px solid #22d3ee;
+          }
+          .bio-card { display: flex; align-items: center; }
+          .bio-text {
+            color: #EBEBF5;
+            font-size: 15px;
+            line-height: 1.75;
+            font-style: italic;
+          }
+
+          /* ── Row cards (interests / details / skills) ── */
+          .row-card {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+          }
+          .row-label {
+            font-size: 14px;
+            font-weight: 700;
+            color: #fff;
+            white-space: nowrap;
+            min-width: 90px;
+          }
+          .row-divider {
+            width: 1px;
+            height: 32px;
+            background: #3A3A3C;
+            flex-shrink: 0;
+          }
+          .row-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+          }
+          .interest-pill {
+            background: #2C2C2E;
+            color: #EBEBF5;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 6px 14px;
+            border-radius: 9999px;
+          }
+          .detail-pill {
+            background: #2C2C2E;
+            color: #EBEBF5;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 6px 12px;
+            border-radius: 9999px;
+          }
+          .detail-link {
+            text-decoration: none;
+            color: #22d3ee;
+            transition: opacity 0.15s;
+          }
+          .detail-link:hover { opacity: 0.75; }
+          .skill-pill {
+            background: rgba(255,0,102,0.1);
+            color: #FF0066;
+            border: 1px solid rgba(255,0,102,0.25);
+            font-size: 13px;
+            font-weight: 500;
+            padding: 5px 13px;
+            border-radius: 9999px;
+          }
+          .accent-pill {
+            background: rgba(34,211,238,0.1);
+            color: #22d3ee;
+            border: 1px solid rgba(34,211,238,0.25);
+          }
+
+          /* ── Card grid (experience / education) ── */
+          .card-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+          }
+          .exp-card { display: flex; flex-direction: column; gap: 6px; }
+          .exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+          }
+          .exp-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.2;
+          }
+          .date-pill {
+            background: #2C2C2E;
+            color: #EBEBF5;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            white-space: nowrap;
+            flex-shrink: 0;
+          }
+          .exp-sub {
+            font-size: 13px;
+            color: #8E8E93;
+          }
+          .card-divider {
+            height: 1px;
+            background: #2C2C2E;
+            margin: 8px 0;
+          }
+          .exp-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex: 1;
+          }
+          .exp-list li {
+            font-size: 13px;
+            color: #EBEBF5;
+            line-height: 1.5;
+            padding-left: 14px;
+            position: relative;
+          }
+          .exp-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #FF0066;
+          }
+          .exp-desc {
+            font-size: 13px;
+            color: #8E8E93;
+            line-height: 1.6;
+          }
+          .card-link {
+            font-size: 13px;
+            color: #22d3ee;
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: 4px;
+          }
+          .card-link:hover { text-decoration: underline; }
+
+          /* ── Print button ── */
+          .print-button {
+            display: none;
+          }
+
+          /* ── Responsive ── */
+          @media (max-width: 640px) {
+            .header { padding-left: 64px; }
+            .header-title { display: none; }
+            .top-grid { grid-template-columns: 1fr; }
+            .photo-card { padding: 16px; }
+            .card-grid { grid-template-columns: 1fr; }
+            .row-card { flex-direction: column; align-items: flex-start; }
+            .row-divider { width: 32px; height: 1px; }
+          }
+
+          /* ── Print ── */
+          @media print {
+            body { background: #fff; color: #000; }
+            .card { background: #f5f5f5; break-inside: avoid; }
+            .hamburger, .slide-menu, .menu-overlay { display: none; }
+            .header { background: #f5f5f5; border-bottom: 1px solid #ddd; }
+          }
+        `}</style>
+
+        {/* Hamburger */}
+        <button
+          className={`hamburger${menuOpen ? ' open' : ''}`}
+          onClick={() => setMenuOpen(o => !o)}
+          aria-label="Toggle menu"
+        >
+          <span /><span /><span />
+        </button>
+
+        <Menu open={menuOpen} onClose={() => setMenuOpen(false)} />
+
+        {/* Header */}
+        <header className="header">
+          <h1>{data.personalInfo.name}</h1>
+          <div className="header-dot" />
+          <span className="header-title">{data.personalInfo.title}</span>
+        </header>
+
+        {/* Pages */}
         <Routes>
           <Route path="/" element={<About />} />
           <Route path="/experience" element={<Experience />} />
@@ -610,8 +620,7 @@ const App = () => {
           <Route path="/projects" element={<Projects />} />
         </Routes>
       </div>
-    </div>
-  </HashRouter>
+    </HashRouter>
   );
 };
 

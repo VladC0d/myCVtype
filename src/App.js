@@ -4,7 +4,7 @@ import photoSrc from './photo.jpeg';
 const CV = {
   name: { first: 'Vlad-Ioan', last: 'Codreanu' },
   title: 'Entry Level Web Developer',
-  summary: `Hardworking and passionate with strong organizational skills. Ready to help team achieve company goals. Currently following a JavaScript course with fundamentals in CSS and HTML, interested in landing an entry-level web developer role. Also has basic knowledge of Matlab and C++.`,
+  summary: `I am a responsible and motivated individual with a strong focus on efficiency and collaboration. I adapt easily to new environments, communicate clearly, and take ownership of my responsibilities to achieve consistent results.`,
   contact: {
     phone: '(+40) 735 722 314',
     email: 'codreanu.vladd@gmail.com',
@@ -14,9 +14,9 @@ const CV = {
   },
   education: [
     {
-      degree: 'Automatic Control & Computer Science',
+      degree: 'Engineer — Information & Communication Technologies',
       school: 'Gheorghe Asachi Technical University',
-      years: '2019 – 2023',
+      years: 'Oct 2022 – Current',
     },
   ],
   skills: [
@@ -26,16 +26,28 @@ const CV = {
     { name: 'C++', level: 25 },
     { name: 'Matlab', level: 25 },
   ],
-  languages: ['Romanian — Native', 'English — C1'],
+  digitalSkills: ['Social Media', 'Microsoft Office', 'SAGA C', 'Windows OS', 'Driving Licence B'],
+  languages: ['Romanian — Native', 'English — C1', 'Spanish — A2'],
   experience: [
+    {
+      title: 'Driver',
+      company: 'Bolt / Uber',
+      years: 'Nov 2025 – Current',
+      points: [
+        'Delivered high-quality customer service maintaining professionalism, clear communication, and a friendly attitude at all times.',
+        'Managed client needs in real time by adapting routes, schedules, and communication to ensure safe, efficient, and comfortable trips.',
+        'Maintained consistently high customer ratings by building trust, handling feedback calmly, and resolving issues quickly.',
+      ],
+    },
     {
       title: 'Insurance Agent',
       company: 'Generali',
-      years: 'Oct 2024 – Now',
+      years: 'Oct 2024 – Current',
       points: [
-        'Educating clients about insurance options and benefits.',
+        'Educating clients about different insurance options and benefits.',
         'Analyzing customer needs to recommend suitable coverage.',
-        'Negotiating policy terms and building long-term client relationships.',
+        'Negotiating policy terms and premiums with insurance providers.',
+        'Building long-term relationships to ensure client satisfaction.',
       ],
     },
     {
@@ -43,18 +55,31 @@ const CV = {
       company: 'Pentalog',
       years: 'Jun – Sep 2023',
       points: [
-        'Participated in team meetings contributing ideas to discussions.',
-        'Made contributions including bug fixes and feature implementations.',
-        'Maintained up-to-date knowledge of React and front-end trends.',
+        'Actively participated in team meetings, contributing ideas and insights to discussions.',
+        'Made substantive contributions to actual projects, including bug fixes and feature implementations.',
+        'Maintained up-to-date knowledge of React and front-end development trends.',
+      ],
+    },
+  ],
+  volunteering: [
+    {
+      title: 'Event Operations & Guest Experience',
+      company: 'Electric Castle',
+      years: 'Jul 2023',
+      points: [
+        'Acted as primary point of contact for international festival-goers, providing real-time information on scheduling, transportation, and amenities.',
+        'Demonstrated multilingual communication skills by assisting guests from various countries and resolving complaints.',
+        'Maintained a positive brand image under demanding conditions, contributing to a high guest satisfaction rating.',
       ],
     },
     {
-      title: 'Volunteer — Afterhills Iași',
-      company: 'Event Volunteer',
+      title: 'Helper with Organization & Planning',
+      company: 'Afterhills Iași',
       years: 'Aug – Sep 2019',
       points: [
-        'Helped with organization, planning and administrative support.',
-        'Greeted visitors and answered questions about the program.',
+        'Greeted visitors and answered questions about program, requirements and opportunities.',
+        'Used strong interpersonal communication skills to convey information to others.',
+        'Helped program leaders with administrative support duties.',
       ],
     },
   ],
@@ -67,9 +92,10 @@ const CV = {
     },
   ],
   interests: [
-    { icon: '✈️', label: 'Travel' },
-    { icon: '🎵', label: 'Music' },
-    { icon: '👗', label: 'Fashion' },
+    { icon: '👥', label: 'People' },
+    { icon: '🗣️', label: 'Languages' },
+    { icon: '💪', label: 'Gym' },
+    { icon: '📷', label: 'Photography' },
   ],
 };
 
@@ -124,7 +150,7 @@ const App = () => (
         width: 100%;
         height: 100%;
         object-fit: cover;
-        object-position: center 20%;
+        object-position: center 10%;
         display: block;
       }
 
@@ -227,6 +253,23 @@ const App = () => (
         background: #FF0066;
       }
       .lang-item:last-child { margin-bottom: 0; }
+
+      /* Digital Skills */
+      .digital-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .digital-tag {
+        font-size: 9px;
+        font-weight: 600;
+        color: #22d3ee;
+        background: rgba(34,211,238,0.1);
+        border: 1px solid rgba(34,211,238,0.25);
+        border-radius: 3px;
+        padding: 3px 7px;
+        letter-spacing: 0.03em;
+      }
 
       /* Contact */
       .contact-item {
@@ -487,6 +530,17 @@ const App = () => (
           ))}
         </div>
 
+        {/* Digital Skills */}
+        <div className="sidebar-section">
+          <p className="sidebar-heading">Digital Skills</p>
+          <div className="s-accent" />
+          <div className="digital-tags">
+            {CV.digitalSkills.map((s, i) => (
+              <span key={i} className="digital-tag">{s}</span>
+            ))}
+          </div>
+        </div>
+
         {/* Contact */}
         <div className="sidebar-section">
           <p className="sidebar-heading">Contact</p>
@@ -559,6 +613,24 @@ const App = () => (
               </div>
               <ul className="exp-points">
                 {job.points.map((pt, j) => <li key={j}>{pt}</li>)}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        {/* Volunteering */}
+        <div className="c-section">
+          <h2 className="c-heading">Volunteering</h2>
+          <div className="c-accent" />
+          {CV.volunteering.map((v, i) => (
+            <div key={i} className="exp-entry">
+              <p className="exp-title">{v.title}</p>
+              <div className="exp-meta">
+                <span className="exp-date">{v.years}</span>
+                <span className="exp-company">{v.company}</span>
+              </div>
+              <ul className="exp-points">
+                {v.points.map((pt, j) => <li key={j}>{pt}</li>)}
               </ul>
             </div>
           ))}

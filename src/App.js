@@ -3,7 +3,7 @@ import photoSrc from './photo.jpeg';
 
 const CV = {
   name: { first: 'Vlad-Ioan', last: 'Codreanu' },
-  title: 'Tech & Web Specialist',
+  title: 'Growth-focused',
   summary: `I am a responsible and motivated individual with a strong focus on efficiency and collaboration. I adapt easily to new environments, communicate clearly, and take ownership of my responsibilities to achieve consistent results.`,
   contact: {
     phone: '(+40) 735 722 314',

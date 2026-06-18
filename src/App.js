@@ -397,7 +397,7 @@ const App = () => {
 
         /* ── Header ── */
         .header {
-          background: linear-gradient(135deg, #2D001A 0%, #FF0066 100%);
+          background: linear-gradient(135deg, #0891b2 0%, #22d3ee 100%);
           color: #fff;
           padding: 44px 48px 36px;
           text-align: center;

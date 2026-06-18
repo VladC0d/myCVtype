@@ -1,7 +1,6 @@
 import React from 'react';
 import { HashRouter, Routes, Route, NavLink } from 'react-router-dom';
-
-const PHOTO_SRC = null; // photo will be set here
+import photoSrc from './photo.jpeg';
 
 const data = {
   personalInfo: {
@@ -122,10 +121,7 @@ const About = () => (
   <div className="page-content about-page">
     <h2 className="about-name">{data.personalInfo.name}</h2>
     <div className="about-photo-wrap">
-      {PHOTO_SRC
-        ? <img src={PHOTO_SRC} alt={data.personalInfo.name} className="about-photo" />
-        : <div className="photo-placeholder">Photo coming soon</div>
-      }
+      <img src={photoSrc} alt={data.personalInfo.name} className="about-photo" />
     </div>
   </div>
 );
@@ -481,31 +477,27 @@ const App = () => (
           letter-spacing: -0.01em;
           text-align: center;
         }
+        /* portrait card — image is stored landscape/rotated so we correct it */
         .about-photo-wrap {
-          display: flex;
-          justify-content: center;
+          position: relative;
+          width: 260px;
+          height: 340px;
+          overflow: hidden;
+          border-radius: 16px;
+          box-shadow: 0 8px 32px rgba(37,99,235,0.18);
+          border: 3px solid #2563eb;
+          flex-shrink: 0;
         }
         .about-photo {
-          width: 220px;
-          height: 220px;
-          border-radius: 50%;
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          width: 340px;
+          height: 260px;
+          max-width: none;
           object-fit: cover;
-          box-shadow: 0 8px 32px rgba(37,99,235,0.18);
-          border: 4px solid #fff;
-          outline: 3px solid #2563eb;
-        }
-        .photo-placeholder {
-          width: 220px;
-          height: 220px;
-          border-radius: 50%;
-          background: #e0e7ff;
-          border: 3px dashed #93c5fd;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: #6b7280;
-          font-size: 14px;
-          font-weight: 500;
+          object-position: center top;
+          transform: translate(-50%, -50%) rotate(-90deg);
         }
 
         /* ── Skills ── */

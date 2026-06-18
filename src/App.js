@@ -160,6 +160,10 @@ const Skills = () => (
         </div>
       </div>
     ))}
+    <h2 className="section-title" style={{ marginTop: '32px' }}>Certifications</h2>
+    {data.certifications.map((cert, i) => (
+      <EntryItem key={i} title={cert.name} sub={cert.issuer} date={cert.date} description={cert.description} link={cert.link} linkLabel="View certificate" />
+    ))}
   </div>
 );
 
@@ -465,7 +469,7 @@ const App = () => {
 
         /* ── Summary ── */
         .summary-text {
-          color: #FF0066;
+          color: #4b5563;
           line-height: 1.75;
           font-size: 15px;
           margin: 0;
@@ -487,21 +491,19 @@ const App = () => {
         .entry-item h3 {
           font-size: 16px;
           font-weight: 600;
-          color: #FF0066;
+          color: #111827;
           margin: 0;
         }
         .entry-date {
           font-size: 13px;
-          color: #FF0066;
+          color: #6b7280;
           white-space: nowrap;
-          opacity: 0.7;
         }
         .entry-sub {
           font-size: 14px;
           color: #FF0066;
           font-weight: 500;
           margin: 3px 0 0;
-          opacity: 0.75;
         }
         .entry-item ul {
           list-style: none;
@@ -513,20 +515,19 @@ const App = () => {
           padding-left: 16px;
           margin-bottom: 5px;
           font-size: 14px;
-          color: #FF0066;
+          color: #374151;
           line-height: 1.6;
         }
         .entry-item ul li::before {
           content: '–';
           position: absolute;
           left: 0;
-          color: #FF0066;
-          opacity: 0.5;
+          color: #9ca3af;
         }
         .entry-desc {
           margin: 8px 0 0;
           font-size: 14px;
-          color: #FF0066;
+          color: #4b5563;
           line-height: 1.6;
         }
         .entry-link {
@@ -547,7 +548,7 @@ const App = () => {
         .skills-category h3 {
           font-size: 13px;
           font-weight: 600;
-          color: #FF0066;
+          color: #374151;
           margin: 0 0 8px;
           text-transform: uppercase;
           letter-spacing: 0.06em;
@@ -558,7 +559,7 @@ const App = () => {
           gap: 8px;
         }
         .skill-tag {
-          background: rgba(255,0,102,0.08);
+          background: rgba(255,0,102,0.07);
           color: #FF0066;
           border: 1px solid rgba(255,0,102,0.3);
           font-size: 13px;

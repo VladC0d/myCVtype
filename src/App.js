@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { HashRouter, Routes, Route, NavLink, useNavigate } from 'react-router-dom';
-import photoSrc from './photo.jpeg';
 
 const data = {
   personalInfo: {
@@ -239,9 +238,6 @@ const App = () => {
   return (
   <HashRouter>
     <div className="cv-container">
-      {/* Full-screen background photo */}
-      <div className="bg-photo" aria-hidden="true" />
-
       {/* Hamburger button */}
       <button
         className={`hamburger${menuOpen ? ' open' : ''}`}
@@ -262,18 +258,7 @@ const App = () => {
           font-family: 'Inter', sans-serif;
           -webkit-font-smoothing: antialiased;
           -moz-osx-font-smoothing: grayscale;
-          background-color: #0a0a0a;
-        }
-
-        /* ── Full-screen background photo ── */
-        .bg-photo {
-          position: fixed;
-          inset: 0;
-          background-image: url(${photoSrc});
-          background-size: cover;
-          background-position: center;
-          filter: brightness(0.45);
-          z-index: 0;
+          background-color: #12001A;
         }
 
         /* ── Hamburger button ── */
@@ -470,17 +455,17 @@ const App = () => {
         .section-title {
           font-size: 11px;
           font-weight: 700;
-          color: #2563eb;
+          color: #FF0066;
           text-transform: uppercase;
           letter-spacing: 0.12em;
-          border-bottom: 2px solid #2563eb;
+          border-bottom: 2px solid #FF0066;
           padding-bottom: 6px;
           margin: 0 0 18px;
         }
 
         /* ── Summary ── */
         .summary-text {
-          color: #4b5563;
+          color: #FF0066;
           line-height: 1.75;
           font-size: 15px;
           margin: 0;
@@ -502,19 +487,21 @@ const App = () => {
         .entry-item h3 {
           font-size: 16px;
           font-weight: 600;
-          color: #111827;
+          color: #FF0066;
           margin: 0;
         }
         .entry-date {
           font-size: 13px;
-          color: #6b7280;
+          color: #FF0066;
           white-space: nowrap;
+          opacity: 0.7;
         }
         .entry-sub {
           font-size: 14px;
-          color: #2563eb;
+          color: #FF0066;
           font-weight: 500;
           margin: 3px 0 0;
+          opacity: 0.75;
         }
         .entry-item ul {
           list-style: none;
@@ -526,19 +513,20 @@ const App = () => {
           padding-left: 16px;
           margin-bottom: 5px;
           font-size: 14px;
-          color: #374151;
+          color: #FF0066;
           line-height: 1.6;
         }
         .entry-item ul li::before {
           content: '–';
           position: absolute;
           left: 0;
-          color: #9ca3af;
+          color: #FF0066;
+          opacity: 0.5;
         }
         .entry-desc {
           margin: 8px 0 0;
           font-size: 14px;
-          color: #4b5563;
+          color: #FF0066;
           line-height: 1.6;
         }
         .entry-link {
@@ -547,7 +535,7 @@ const App = () => {
           gap: 5px;
           margin-top: 8px;
           font-size: 13px;
-          color: #2563eb;
+          color: #FF0066;
           text-decoration: none;
           font-weight: 500;
         }
@@ -559,7 +547,7 @@ const App = () => {
         .skills-category h3 {
           font-size: 13px;
           font-weight: 600;
-          color: #374151;
+          color: #FF0066;
           margin: 0 0 8px;
           text-transform: uppercase;
           letter-spacing: 0.06em;
@@ -570,9 +558,9 @@ const App = () => {
           gap: 8px;
         }
         .skill-tag {
-          background: #eff6ff;
-          color: #1d4ed8;
-          border: 1px solid #bfdbfe;
+          background: rgba(255,0,102,0.08);
+          color: #FF0066;
+          border: 1px solid rgba(255,0,102,0.3);
           font-size: 13px;
           font-weight: 500;
           padding: 4px 12px;
@@ -592,7 +580,6 @@ const App = () => {
         @media print {
           body { background: #fff; }
           .cv-container { padding: 0; }
-          .bg-photo { display: none; }
           .print-button, .hamburger, .menu-overlay, .slide-menu { display: none; }
           .cv-page { box-shadow: none; border-radius: 0; max-width: 100%; }
           .header {

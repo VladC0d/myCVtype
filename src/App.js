@@ -20,11 +20,8 @@ const CV = {
     },
   ],
   skills: [
-    { name: 'JavaScript', level: 60 },
-    { name: 'HTML', level: 75 },
-    { name: 'CSS', level: 70 },
-    { name: 'C++', level: 25 },
-    { name: 'Matlab', level: 25 },
+    'JavaScript', 'HTML', 'CSS', 'C++', 'Matlab',
+    'Communication', 'Teamwork', 'Adaptability', 'Customer Service', 'Problem Solving', 'Fast Learner',
   ],
   digitalSkills: ['Social Media', 'Microsoft Office', 'SAGA C', 'Windows OS', 'Driving Licence B'],
   languages: ['Romanian — Native', 'English — C1', 'Spanish — A2'],
@@ -206,31 +203,20 @@ const App = () => (
       }
       .edu-years { font-size: 10px; color: #666; }
 
-      /* Skills bars */
-      .skill-row {
+      /* Skills tags */
+      .skill-tags {
         display: flex;
-        align-items: center;
-        gap: 10px;
-        margin-bottom: 9px;
+        flex-wrap: wrap;
+        gap: 6px;
       }
-      .skill-row:last-child { margin-bottom: 0; }
-      .skill-name {
-        font-size: 11px;
+      .skill-tag {
+        font-size: 9px;
+        font-weight: 600;
         color: #EBEBF5;
-        width: 80px;
-        flex-shrink: 0;
-      }
-      .skill-bar {
-        flex: 1;
-        height: 3px;
         background: #2C2C2E;
-        border-radius: 2px;
-        overflow: hidden;
-      }
-      .skill-fill {
-        height: 100%;
-        background: #9CA3AF;
-        border-radius: 2px;
+        border-radius: 3px;
+        padding: 3px 7px;
+        letter-spacing: 0.03em;
       }
 
       /* Languages */
@@ -511,14 +497,11 @@ const App = () => (
         <div className="sidebar-section">
           <p className="sidebar-heading">Skills</p>
           <div className="s-accent" />
-          {CV.skills.map((s, i) => (
-            <div key={i} className="skill-row">
-              <span className="skill-name">{s.name}</span>
-              <div className="skill-bar">
-                <div className="skill-fill" style={{ width: `${s.level}%` }} />
-              </div>
-            </div>
-          ))}
+          <div className="skill-tags">
+            {CV.skills.map((s, i) => (
+              <span key={i} className="skill-tag">{s}</span>
+            ))}
+          </div>
         </div>
 
         {/* Languages */}

@@ -1,6 +1,8 @@
 import React from 'react';
 import { HashRouter, Routes, Route, NavLink } from 'react-router-dom';
 
+const PHOTO_SRC = null; // photo will be set here
+
 const data = {
   personalInfo: {
     name: 'Vlad-Ioan Codreanu',
@@ -117,9 +119,14 @@ const EntryItem = ({ title, sub, date, description, link, linkLabel }) => (
 // ── Pages ─────────────────────────────────────────────────────────────────────
 
 const About = () => (
-  <div className="page-content">
-    <h2 className="section-title">About Me</h2>
-    <p className="summary-text">{data.summary}</p>
+  <div className="page-content about-page">
+    <h2 className="about-name">{data.personalInfo.name}</h2>
+    <div className="about-photo-wrap">
+      {PHOTO_SRC
+        ? <img src={PHOTO_SRC} alt={data.personalInfo.name} className="about-photo" />
+        : <div className="photo-placeholder">Photo coming soon</div>
+      }
+    </div>
   </div>
 );
 
@@ -210,8 +217,8 @@ const Header = () => {
 
 const Navbar = () => (
   <nav className="cv-nav">
-    <NavLink to="/" end>About</NavLink>
-    <NavLink to="/experience">Experience</NavLink>
+    <NavLink to="/" end>Summary</NavLink>
+    <NavLink to="/experience">Work Experience</NavLink>
     <NavLink to="/education">Education</NavLink>
     <NavLink to="/skills">Skills</NavLink>
     <NavLink to="/projects">Projects</NavLink>
@@ -456,6 +463,50 @@ const App = () => (
           font-weight: 500;
         }
         .entry-link:hover { text-decoration: underline; }
+
+        /* ── About / Summary page ── */
+        .about-page {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding-top: 48px;
+          padding-bottom: 56px;
+          gap: 28px;
+        }
+        .about-name {
+          font-size: 30px;
+          font-weight: 700;
+          color: #111827;
+          margin: 0;
+          letter-spacing: -0.01em;
+          text-align: center;
+        }
+        .about-photo-wrap {
+          display: flex;
+          justify-content: center;
+        }
+        .about-photo {
+          width: 220px;
+          height: 220px;
+          border-radius: 50%;
+          object-fit: cover;
+          box-shadow: 0 8px 32px rgba(37,99,235,0.18);
+          border: 4px solid #fff;
+          outline: 3px solid #2563eb;
+        }
+        .photo-placeholder {
+          width: 220px;
+          height: 220px;
+          border-radius: 50%;
+          background: #e0e7ff;
+          border: 3px dashed #93c5fd;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #6b7280;
+          font-size: 14px;
+          font-weight: 500;
+        }
 
         /* ── Skills ── */
         .skills-category { margin-bottom: 20px; }
